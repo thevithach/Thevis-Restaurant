@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetMenuItemsByIdQuery } from "../Apis/menuItemApi";
+//USER ID for testing: 709d1276-6928-4a87-b8e6-8426bb1ebadf
 function MenuItemDetails() {
   //menuItemId is the parameter defined in the route in App.tsx
   const { menuItemId } = useParams();
