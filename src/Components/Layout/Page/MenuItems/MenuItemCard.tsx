@@ -18,6 +18,9 @@ function MenuItemCard(props: Props) {
       updateQuantityBy: 1,
       userId: "709d1276-6928-4a87-b8e6-8426bb1ebadf",
     });
+    console.log(response);
+
+    setIsAddingToCart(false);
   };
 
   return (
@@ -55,19 +58,34 @@ function MenuItemCard(props: Props) {
               </i>
             )}
 
-          <i
-            className="bi bi-cart-plus btn btn-outline-danger"
-            style={{
-              position: "absolute",
-              top: "15px",
-              right: "15px",
-              padding: "5px 10px",
-              borderRadius: "3px",
-              outline: "none !important",
-              cursor: "pointer",
-            }}
-            onClick={() => handleAddToCart(props.menuItem.id)}
-          ></i>
+          {isAddingToCart ? (
+            <div
+              style={{
+                position: "absolute",
+                top: "15px",
+                right: "15px",
+              }}
+            >
+              <div
+                className={"spinner-border text-warning"}
+                style={{ scale: "100%" }}
+              ></div>
+            </div>
+          ) : (
+            <i
+              className="bi bi-cart-plus btn btn-outline-danger"
+              style={{
+                position: "absolute",
+                top: "15px",
+                right: "15px",
+                padding: "5px 10px",
+                borderRadius: "3px",
+                outline: "none !important",
+                cursor: "pointer",
+              }}
+              onClick={() => handleAddToCart(props.menuItem.id)}
+            ></i>
+          )}
 
           <div className="text-center">
             <p className="card-title m-0 text-success fs-3">
