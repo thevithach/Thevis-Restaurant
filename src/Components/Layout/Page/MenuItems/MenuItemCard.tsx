@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { menuItemModel } from "../../../../Interfaces";
 import { Link } from "react-router-dom";
+import { useUpdateShoppingCartMutation } from "../../../../Apis/shoppingCartApi";
 
 interface Props {
   menuItem: menuItemModel;
 }
 
 function MenuItemCard(props: Props) {
+  const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
+  const [updateShoppingCart] = useUpdateShoppingCartMutation();
+
+  const handleAddToCart = async (menuItemId: number) => {
+    setIsAddingToCart(true);
+    const response = await updateShoppingCart({
+      menuItemId: menuItemId,
+      updateQuantityBy: 1,
+      userId: "709d1276-6928-4a87-b8e6-8426bb1ebadf",
+    });
+  };
+
   return (
     <div className="col-md-4 col-12 p-4">
       <div
@@ -53,6 +66,7 @@ function MenuItemCard(props: Props) {
               outline: "none !important",
               cursor: "pointer",
             }}
+            onClick={() => handleAddToCart(props.menuItem.id)}
           ></i>
 
           <div className="text-center">
