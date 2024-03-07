@@ -92,7 +92,7 @@ function CartPickUpDetails() {
           className="btn btn-lg btn-success form-control mt-3"
           disabled={loading}
         >
-          {loading ? <MiniLoader /> : "Looks Good? Place Order!"}
+          {loading ? <MiniLoader /> : "Place Order"}
         </button>
       </form>
     </div>
