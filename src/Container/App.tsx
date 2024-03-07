@@ -1,6 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import { Footer, Header } from "../Components/Layout";
-import { Home, MenuItemDetails, NotFound, ShoppingCart } from "../Pages";
+import {
+  Home,
+  Login,
+  MenuItemDetails,
+  NotFound,
+  Register,
+  ShoppingCart,
+} from "../Pages";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useGetShoppingCartQuery } from "../Apis/shoppingCartApi";
@@ -30,6 +37,8 @@ function App() {
             element={<MenuItemDetails />}
           />
           <Route path="/ShoppingCart" element={<ShoppingCart />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
