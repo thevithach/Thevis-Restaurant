@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+export const emptyUserState = {
   fullName: "",
   id: "",
   email: "",
@@ -9,7 +9,7 @@ const initialState = {
 
 export const userAuthSlice = createSlice({
   name: "menuItems",
-  initialState: initialState,
+  initialState: emptyUserState,
   reducers: {
     setLoggedInUser: (state, action) => {
       state.fullName = action.payload.fullName;
