@@ -6,6 +6,8 @@ import {
   MainLoader,
   MiniLoader,
 } from "../Components/Layout/Page/MenuItems/Common";
+import { apiResponse } from "../Interfaces";
+import { toastNotify } from "../Helper";
 //USER ID for testing: 709d1276-6928-4a87-b8e6-8426bb1ebadf
 function MenuItemDetails() {
   //menuItemId is the parameter defined in the route in App.tsx
@@ -28,13 +30,15 @@ function MenuItemDetails() {
   const handleAddToCart = async (menuItemId: number) => {
     setIsAddingToCart(true);
 
-    const response = await updateShoppingCart({
+    const response: apiResponse = await updateShoppingCart({
       menuItemId: menuItemId,
       updateQuantityBy: quantity,
       userId: "709d1276-6928-4a87-b8e6-8426bb1ebadf",
     });
 
-    console.log(response);
+    if (response.data && response.data.isSuccess) {
+      toastNotify("Item added to cart successfully");
+    }
 
     setIsAddingToCart(false);
   };

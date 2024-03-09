@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { SD_Roles } from "../Utility/SD";
-import { inputHelper } from "../Helper";
+import { inputHelper, toastNotify } from "../Helper";
 import { useRegisterUserMutation } from "../Apis/authApi";
 import { apiResponse } from "../Interfaces";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
   const [registerUser] = useRegisterUserMutation();
   const [loading, setLoading] = useState(false);
   const [userInput, setUserInput] = useState({
@@ -32,9 +35,10 @@ function Register() {
       role: userInput.role,
     });
     if (response.data) {
-      console.log(response.data);
+      toast.success("User registered successfully");
+      navigate("/login");
     } else if (response.error) {
-      console.log(response.error.data.errorsMessages[0]);
+      toastNotify(response.error.data.errorsMessages[0], "error");
     }
     setLoading(false);
   };
