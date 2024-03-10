@@ -1,6 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import { Footer, Header } from "../Components/Layout";
 import {
+  AccessDenied,
+  AuthenticationTest,
+  AuthenticationTestAdmin,
   Home,
   Login,
   MenuItemDetails,
@@ -52,6 +55,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
+          <Route path="/authentication" element={<AuthenticationTest />} />
+          <Route path="/authorization" element={<AuthenticationTestAdmin />} />
+          <Route path="accessDenied" element={<AccessDenied />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
