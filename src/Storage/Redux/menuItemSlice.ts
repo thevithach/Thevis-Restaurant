@@ -1,18 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  menuItems: [],
+  menuItem: [],
 };
 
 export const menuItemSlice = createSlice({
-  name: "menuItems",
+  name: "MenuItem",
   initialState: initialState,
   reducers: {
-    setMenuItems: (state, action) => {
-      state.menuItems = action.payload;
+    setMenuItem: (state, action) => {
+      state.menuItem = action.payload;
     },
   },
 });
 
-export const { setMenuItems } = menuItemSlice.actions;
+export const { setMenuItem } = menuItemSlice.actions;
 export const menuItemReducer = menuItemSlice.reducer;

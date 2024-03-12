@@ -1,11 +1,11 @@
 export default interface apiResponse {
   data?: {
-    // This will be included in suggestions so if possible use the format
+    // this will be included in suggestions so if possible use the format if you know that.
     statusCode?: number;
     isSuccess?: boolean;
-    errorsMessages?: Array<string>;
+    errorMessages?: Array<string>;
     result: {
-      //This will not give suggestions
+      // this will not give suggestions
       [key: string]: string;
     };
   };

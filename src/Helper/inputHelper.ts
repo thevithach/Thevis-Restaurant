@@ -1,3 +1,5 @@
+import React from "react";
+
 const inputHelper = (
   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   data: any

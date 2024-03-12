@@ -13,7 +13,7 @@ export const shoppingCartSlice = createSlice({
       state.cartItems = action.payload;
     },
     updateQuantity: (state, action) => {
-      // payload - get cart item that needs to be updated
+      //payload - cart item that needs to be updated, newquantity
       state.cartItems = state.cartItems?.map((item) => {
         if (item.id === action.payload.cartItem.id) {
           item.quantity = action.payload.quantity;
@@ -22,7 +22,7 @@ export const shoppingCartSlice = createSlice({
       });
     },
     removeFromCart: (state, action) => {
-      // payload - get cart item that needs to be updated
+      //payload - cart item that needs to be updated, newquantity
       state.cartItems = state.cartItems?.filter((item) => {
         if (item.id === action.payload.cartItem.id) {
           return null;

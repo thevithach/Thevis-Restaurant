@@ -1,25 +1,22 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../Storage/Redux/store";
-import { cartItemModel } from "../../../../Interfaces";
-import { inputHelper } from "../../../../Helper";
-import { MiniLoader } from "../MenuItems/Common";
+import { useSelector, useDispatch } from "react-redux";
+import { inputHelper } from "../../../Helper";
+import { cartItemModel } from "../../../Interfaces";
+import { RootState } from "../../../Storage/Redux/store";
+import { MiniLoader } from "../Common";
 
-function CartPickUpDetails() {
+export default function CartPickUpDetails() {
   const [loading, setLoading] = useState(false);
   const shoppingCartFromStore: cartItemModel[] = useSelector(
     (state: RootState) => state.shoppingCartStore.cartItems ?? []
   );
-
+  let grandTotal = 0;
+  let totalItems = 0;
   const initialUserData = {
     name: "",
     email: "",
     phoneNumber: "",
   };
-
-  let grandTotal = 0;
-  let totalItems = 0;
-
   shoppingCartFromStore?.map((cartItem: cartItemModel) => {
     totalItems += cartItem.quantity ?? 0;
     grandTotal += (cartItem.menuItem?.price ?? 0) * (cartItem.quantity ?? 0);
@@ -92,11 +89,9 @@ function CartPickUpDetails() {
           className="btn btn-lg btn-success form-control mt-3"
           disabled={loading}
         >
-          {loading ? <MiniLoader /> : "Place Order"}
+          {loading ? <MiniLoader /> : "Looks Good? Place Order!"}
         </button>
       </form>
     </div>
   );
 }
-
-export default CartPickUpDetails;

@@ -4,9 +4,9 @@ import { inputHelper } from "../Helper";
 import { apiResponse, userModel } from "../Interfaces";
 import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
-import { setLoggedInUser } from "../Storage/Redux/userAuthSlice";
 import { useNavigate } from "react-router-dom";
-import { MainLoader } from "../Components/Layout/Page/MenuItems/Common";
+import { setLoggedInUser } from "../Storage/Redux/userAuthSlice";
+import { MainLoader } from "../Components/Page/Common";
 
 function Login() {
   const [error, setError] = useState("");
@@ -39,8 +39,8 @@ function Login() {
       dispatch(setLoggedInUser({ fullName, id, email, role }));
       navigate("/");
     } else if (response.error) {
-      console.log(response.error.data.errorsMessages[0]);
-      setError(response.error.data.errorsMessages[0]);
+      console.log(response.error.data.errorMessages[0]);
+      setError(response.error.data.errorMessages[0]);
     }
 
     setLoading(false);

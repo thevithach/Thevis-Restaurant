@@ -9,18 +9,18 @@ const menuItemApi = createApi({
   endpoints: (builder) => ({
     getMenuItems: builder.query({
       query: () => ({
-        url: "menuItem",
+        url: "menuitem",
       }),
       providesTags: ["MenuItems"],
     }),
-    getMenuItemsById: builder.query({
+    getMenuItemById: builder.query({
       query: (id) => ({
-        url: `menuItem/${id}`,
+        url: `menuitem/${id}`,
       }),
       providesTags: ["MenuItems"],
     }),
   }),
 });
 
-export const { useGetMenuItemsQuery, useGetMenuItemsByIdQuery } = menuItemApi;
+export const { useGetMenuItemsQuery, useGetMenuItemByIdQuery } = menuItemApi;
 export default menuItemApi;

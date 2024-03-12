@@ -3,7 +3,6 @@ import { menuItemReducer } from "./menuItemSlice";
 import { authApi, menuItemApi, shoppingCartApi } from "../../Apis";
 import { shoppingCartReducer } from "./shoppingCartSlice";
 import { userAuthReducer } from "./userAuthSlice";
-
 const store = configureStore({
   reducer: {
     menuItemStore: menuItemReducer,
@@ -21,4 +20,5 @@ const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
+
 export default store;

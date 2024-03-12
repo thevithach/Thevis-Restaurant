@@ -5,7 +5,9 @@ function MiniLoader({ type = "warning", size = 100 }) {
     <div
       className={`spinner-border text-${type}`}
       style={{ scale: `${size}%` }}
-    ></div>
+    >
+      {" "}
+    </div>
   );
 }
 

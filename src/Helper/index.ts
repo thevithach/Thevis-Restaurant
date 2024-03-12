@@ -1,3 +1,3 @@
 import inputHelper from "./inputHelper";
-import toastNotify from "./toastNotify";
+import toastNotify from "./taostNotify";
 export { inputHelper, toastNotify };

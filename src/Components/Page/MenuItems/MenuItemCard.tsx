@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { apiResponse, menuItemModel, userModel } from "../../../../Interfaces";
-import { Link, useNavigate } from "react-router-dom";
-import { useUpdateShoppingCartMutation } from "../../../../Apis/shoppingCartApi";
-import { MiniLoader } from "./Common";
-import { toastNotify } from "../../../../Helper";
+import React from "react";
+import { apiResponse, menuItemModel, userModel } from "../../../Interfaces";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useUpdateShoppingCartMutation } from "../../../Apis/shoppingCartApi";
+import { MiniLoader } from "../Common";
+import { toastNotify } from "../../../Helper";
+import { RootState } from "../../../Storage/Redux/store";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../Storage/Redux/store";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   menuItem: menuItemModel;
@@ -25,13 +27,14 @@ function MenuItemCard(props: Props) {
       return;
     }
     setIsAddingToCart(true);
+
     const response: apiResponse = await updateShoppingCart({
       menuItemId: menuItemId,
       updateQuantityBy: 1,
-      userId: "709d1276-6928-4a87-b8e6-8426bb1ebadf",
+      userId: userData.id,
     });
     if (response.data && response.data.isSuccess) {
-      toastNotify("Item added to cart successfully");
+      toastNotify("Item added to cart successfully!");
     }
     setIsAddingToCart(false);
   };
@@ -110,7 +113,14 @@ function MenuItemCard(props: Props) {
               {props.menuItem.category}
             </p>
           </div>
-          <p className="card-text" style={{ textAlign: "center" }}>
+          <p
+            className="card-text"
+            style={{
+              textAlign: "center",
+              fontWeight: "light",
+              fontSize: "14px",
+            }}
+          >
             {props.menuItem.description}
           </p>
           <div className="row text-center">

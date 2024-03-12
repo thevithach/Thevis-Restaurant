@@ -1,21 +1,20 @@
 import React, { useState } from "react";
-import { SD_Roles } from "../Utility/SD";
-import { inputHelper, toastNotify } from "../Helper";
 import { useRegisterUserMutation } from "../Apis/authApi";
+import { inputHelper, toastNotify } from "../Helper";
 import { apiResponse } from "../Interfaces";
-import { toast } from "react-toastify";
+import { SD_Roles } from "../Utility/SD";
 import { useNavigate } from "react-router-dom";
-import { MainLoader } from "../Components/Layout/Page/MenuItems/Common";
+import { MainLoader } from "../Components/Page/Common";
 
 function Register() {
-  const navigate = useNavigate();
   const [registerUser] = useRegisterUserMutation();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const [userInput, setUserInput] = useState({
     userName: "",
-    name: "",
     password: "",
     role: "",
+    name: "",
   });
 
   const handleUserInput = (
@@ -28,19 +27,19 @@ function Register() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-
     const response: apiResponse = await registerUser({
       userName: userInput.userName,
-      name: userInput.name,
       password: userInput.password,
       role: userInput.role,
+      name: userInput.name,
     });
     if (response.data) {
-      toast.success("User registered successfully");
+      toastNotify("Registeration successful! Please login to continue.");
       navigate("/login");
     } else if (response.error) {
-      toastNotify(response.error.data.errorsMessages[0], "error");
+      toastNotify(response.error.data.errorMessages[0], "error");
     }
+
     setLoading(false);
   };
 
@@ -87,12 +86,12 @@ function Register() {
             <select
               className="form-control form-select"
               required
-              name="role"
               value={userInput.role}
+              name="role"
               onChange={handleUserInput}
             >
-              <option value="">-- Select Role --</option>
-              <option value={`${SD_Roles.CUSTOMER}`}>Customer</option>
+              <option value="">--Select Role--</option>
+              <option value={`${SD_Roles.CUTOMER}`}>Customer</option>
               <option value={`${SD_Roles.ADMIN}`}>Admin</option>
             </select>
           </div>
