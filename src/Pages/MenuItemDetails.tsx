@@ -6,8 +6,10 @@ import {
   MainLoader,
   MiniLoader,
 } from "../Components/Layout/Page/MenuItems/Common";
-import { apiResponse } from "../Interfaces";
+import { apiResponse, userModel } from "../Interfaces";
 import { toastNotify } from "../Helper";
+import { useSelector } from "react-redux";
+import { RootState } from "../Storage/Redux/store";
 //USER ID for testing: 709d1276-6928-4a87-b8e6-8426bb1ebadf
 function MenuItemDetails() {
   //menuItemId is the parameter defined in the route in App.tsx
@@ -17,6 +19,10 @@ function MenuItemDetails() {
   const [quantity, setQuantity] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
   const [updateShoppingCart] = useUpdateShoppingCartMutation();
+
+  const userData: userModel = useSelector(
+    (state: RootState) => state.userAuthStore
+  );
 
   const handleQuantity = (counter: number) => {
     let newQuantity = quantity + counter;
@@ -28,6 +34,10 @@ function MenuItemDetails() {
   };
 
   const handleAddToCart = async (menuItemId: number) => {
+    if (!userData.id) {
+      navigate("/login");
+      return;
+    }
     setIsAddingToCart(true);
 
     const response: apiResponse = await updateShoppingCart({
