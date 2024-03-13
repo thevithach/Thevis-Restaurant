@@ -5,11 +5,10 @@ const paymentApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://thevireact.azurewebsites.net/api/",
   }),
-  tagTypes: ["MenuItems"],
   endpoints: (builder) => ({
-    initiatePayment: builder.query({
+    initiatePayment: builder.mutation({
       query: (userId) => ({
-        url: "menuitem",
+        url: "payment",
         method: "POST",
         params: {
           userId: userId,
@@ -19,5 +18,5 @@ const paymentApi = createApi({
   }),
 });
 
-export const { useInitiatePaymentQuery } = paymentApi;
+export const { useInitiatePaymentMutation } = paymentApi;
 export default paymentApi;
