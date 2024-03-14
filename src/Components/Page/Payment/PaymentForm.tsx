@@ -6,8 +6,10 @@ import {
 import { set } from "immer/dist/internal";
 import { useState } from "react";
 import { toastNotify } from "../../../Helper";
+import { orderSummaryProps } from "../Order/orderSummaryProps";
+import { cartItemModel } from "../../../Interfaces";
 
-const PaymentForm = () => {
+const PaymentForm = ({ data, userInput }: orderSummaryProps) => {
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setProcessingTo] = useState(false);
@@ -37,6 +39,16 @@ const PaymentForm = () => {
       setProcessingTo(false);
     } else {
       console.log(result);
+
+      const orderDetailsDTO: any = [];
+      data.cartItems.map((item: cartItemModel) => {
+        const tempOrderDetail: any = {};
+        tempOrderDetail["menuItemId"] = item.menuItem?.id;
+        tempOrderDetail["quantity"] = item.quantity;
+        tempOrderDetail["itemName"] = item.menuItem?.name;
+        tempOrderDetail["price"] = item.menuItem?.price;
+        orderDetailsDTO.push(tempOrderDetail);
+      });
     }
   };
   return (
