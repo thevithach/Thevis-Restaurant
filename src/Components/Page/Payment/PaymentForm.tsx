@@ -7,12 +7,17 @@ import { set } from "immer/dist/internal";
 import { useState } from "react";
 import { toastNotify } from "../../../Helper";
 import { orderSummaryProps } from "../Order/orderSummaryProps";
-import { cartItemModel } from "../../../Interfaces";
+import { apiResponse, cartItemModel } from "../../../Interfaces";
+import { useCreateOrderMutation } from "../../../Apis/orderApi";
+import { SD_Status } from "../../../Utility/SD";
 
 const PaymentForm = ({ data, userInput }: orderSummaryProps) => {
   const stripe = useStripe();
   const elements = useElements();
+  const [createOrder] = useCreateOrderMutation();
   const [isProcessing, setProcessingTo] = useState(false);
+  console.log("data");
+  console.log(data);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // We don't want to let default form submission happen here,
@@ -40,6 +45,9 @@ const PaymentForm = ({ data, userInput }: orderSummaryProps) => {
     } else {
       console.log(result);
 
+      let grandTotal = 0;
+      let totalItems = 0;
+
       const orderDetailsDTO: any = [];
       data.cartItems.map((item: cartItemModel) => {
         const tempOrderDetail: any = {};
@@ -48,7 +56,27 @@ const PaymentForm = ({ data, userInput }: orderSummaryProps) => {
         tempOrderDetail["itemName"] = item.menuItem?.name;
         tempOrderDetail["price"] = item.menuItem?.price;
         orderDetailsDTO.push(tempOrderDetail);
+
+        grandTotal += item.quantity! * item.menuItem?.price!;
+        totalItems += item.quantity!;
       });
+
+      const response: apiResponse = await createOrder({
+        pickupName: userInput.name,
+        pickupPhoneNumber: userInput.phoneNumber,
+        pickupEmail: userInput.email,
+        totalItems: totalItems,
+        orderTotal: grandTotal,
+        orderDetailsDTO: orderDetailsDTO,
+        stripePaymentIntentID: data.stripePaymentIntentId,
+        applicationUserId: data.userId,
+        status:
+          result.paymentIntent.status === "succeeded"
+            ? SD_Status.CONFIRMED
+            : SD_Status.PENDING,
+      });
+
+      console.log(response);
     }
   };
   return (
