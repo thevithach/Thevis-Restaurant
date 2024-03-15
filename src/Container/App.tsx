@@ -8,6 +8,7 @@ import {
   Login,
   MenuItemDetails,
   NotFound,
+  OrderConfirmed,
   Payment,
   Register,
   ShoppingCart,
@@ -65,6 +66,7 @@ function App() {
           ></Route>
           <Route path="/accessDenied" element={<AccessDenied />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="order/orderconfirmed/:id" element={<OrderConfirmed />} />
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </div>
