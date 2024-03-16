@@ -35,7 +35,7 @@ const orderApi = createApi({
     }),
     updateOrderHeader: builder.mutation({
       query: (orderDetails) => ({
-        url: "order" + orderDetails.orderHeaderId,
+        url: "order/" + orderDetails.orderHeaderId,
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
