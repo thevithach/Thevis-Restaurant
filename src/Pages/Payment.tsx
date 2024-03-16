@@ -8,8 +8,6 @@ function Payment() {
   const {
     state: { apiResult, userInput },
   } = useLocation();
-  console.log(apiResult);
-  console.log(userInput);
 
   const stripePromise = loadStripe(
     "pk_test_51O9wE0I1b2IdnTWddr1omvh5vLpLDHyHiaH9dZoBerSAccEIjnMe0AnUytsQwt2zxJJoqSrkEpj88a6KcwFu3IWv007qQwlknJ"

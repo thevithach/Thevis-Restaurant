@@ -18,8 +18,6 @@ const PaymentForm = ({ data, userInput }: orderSummaryProps) => {
   const elements = useElements();
   const [createOrder] = useCreateOrderMutation();
   const [isProcessing, setProcessingTo] = useState(false);
-  console.log("data");
-  console.log(data);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // We don't want to let default form submission happen here,
@@ -45,8 +43,6 @@ const PaymentForm = ({ data, userInput }: orderSummaryProps) => {
       toastNotify("An unexpected error occurred", "error");
       setProcessingTo(false);
     } else {
-      console.log(result);
-
       let grandTotal = 0;
       let totalItems = 0;
 
