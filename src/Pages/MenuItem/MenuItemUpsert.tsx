@@ -8,11 +8,20 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { MainLoader } from "../../Components/Page/Common";
 import { toast } from "react-toastify";
+import { SD_Categories } from "../../Utility/SD";
+
+const Categories = [
+  SD_Categories.APPETIZER,
+  SD_Categories.MAIN_COURSE,
+  SD_Categories.DESSERT,
+  SD_Categories.DRINK,
+];
+
 const menuItemData = {
   name: "",
   description: "",
   specialTag: "",
-  category: "",
+  category: Categories[0],
   price: "",
 };
 
@@ -92,7 +101,7 @@ function MenuItemUpsert() {
     const formData = new FormData();
     formData.append("Name", menuItemInputs.name);
     formData.append("Description", menuItemInputs.description);
-    formData.append("SpecialTag", menuItemInputs.specialTag);
+    formData.append("SpecialTag", menuItemInputs.specialTag ?? "");
     formData.append("Category", menuItemInputs.category);
     formData.append("Price", menuItemInputs.price);
     if (imageToBeDisplayed) formData.append("File", imageToBeStored);
@@ -151,14 +160,21 @@ function MenuItemUpsert() {
               value={menuItemInputs.specialTag}
               onChange={handleMenuItemInput}
             />
-            <input
-              type="text"
-              className="form-control mt-3"
+            <select
+              className="form-control mt-3 form-select"
               placeholder="Enter Category"
               name="category"
               value={menuItemInputs.category}
               onChange={handleMenuItemInput}
-            />
+            >
+              {Categories.map((category, index) => {
+                return (
+                  <option key={index} value={category}>
+                    {category}
+                  </option>
+                );
+              })}
+            </select>
             <input
               type="number"
               className="form-control mt-3"
