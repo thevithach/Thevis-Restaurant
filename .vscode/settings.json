@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/84ea5737-7a62-48c5-9852-c5d819a42ac2/resourceGroups/react-project/providers/Microsoft.Web/sites/TheviReact",
+  "appService.deploySubpath": "."
+}
