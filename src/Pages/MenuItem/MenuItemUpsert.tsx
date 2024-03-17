@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { inputHelper, toastNotify } from "../../Helper";
 import { useCreateMenuItemMutation } from "../../Apis/menuItemApi";
 import { useNavigate } from "react-router-dom";
+import { MainLoader } from "../../Components/Page/Common";
 
 const menuItemData = {
   name: "",
@@ -82,11 +83,12 @@ function MenuItemUpsert() {
     setLoading(false);
   };
   return (
-    <div className="container border mt-5 p-5">
-      <h3 className="offset-2 px-2 text-success">Add Product</h3>
+    <div className="container border mt-5 p-5 bg-light">
+      {loading && <MainLoader />}
+      <h3 className="px-2 text-success">Add Menu Item</h3>
       <form method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
         <div className="row mt-3">
-          <div className="col-md-5 offset-2">
+          <div className="col-md-7">
             <input
               type="text"
               className="form-control"
@@ -134,14 +136,23 @@ function MenuItemUpsert() {
               onChange={handleFileChange}
               className="form-control mt-3"
             />
-            <div className="text-center">
-              <button
-                type="submit"
-                style={{ width: "50%" }}
-                className="btn btn-success mt-5"
-              >
-                Submit
-              </button>
+            <div className="row">
+              <div className="col-6">
+                <button
+                  type="submit"
+                  className="btn btn-success form-control mt-3"
+                >
+                  Submit
+                </button>
+              </div>
+              <div className="col-6">
+                <a
+                  onClick={() => navigate(-1)}
+                  className="btn btn-secondary form-control mt-3"
+                >
+                  Back to Menu Items
+                </a>
+              </div>
             </div>
           </div>
           <div className="col-md-5 text-center">
