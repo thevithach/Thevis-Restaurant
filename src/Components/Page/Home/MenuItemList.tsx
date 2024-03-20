@@ -8,10 +8,12 @@ import { setMenuItem } from "../../../Storage/Redux/menuItemSlice";
 import { MainLoader } from "../Common";
 import { RootState } from "../../../Storage/Redux/store";
 import { SD_SortTypes } from "../../../Utility/SD";
+import { text } from "stream/consumers";
 function MenuItemList() {
   const [menuItems, setMenuItems] = useState<menuItemModel[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [categoryList, setCategoryList] = useState([""]);
+
   const dispatch = useDispatch();
   const [sortName, setSortName] = useState(SD_SortTypes.NAME_A_TO_Z);
   const { data, isLoading } = useGetMenuItemsQuery(null);
