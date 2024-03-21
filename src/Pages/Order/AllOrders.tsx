@@ -17,16 +17,14 @@ const filterOptions = [
 ];
 
 function AllOrders() {
-  const [orderData, setOrderData] = useState([]);
-
   const [filters, setFilters] = useState({ searchString: "", status: "" });
-
+  const [orderData, setOrderData] = useState([]);
   const [totalRecords, setTotalRecords] = useState(0);
   const [pageOptions, setPageOptions] = useState({
     pageNumber: 1,
     pageSize: 5,
   });
-
+  const [currentPageSize, setCurrentPageSize] = useState(pageOptions.pageSize);
   const [apiFilters, setApiFilters] = useState({
     searchString: "",
     status: "",
@@ -68,16 +66,23 @@ function AllOrders() {
       (pageOptions.pageNumber - 1) * pageOptions.pageSize + 1;
     const dataEndNumber = pageOptions.pageNumber * pageOptions.pageSize;
 
-    return `${dataStartNumber} - ${
-      dataEndNumber < totalRecords ? dataEndNumber : totalRecords
-    } of ${totalRecords}`;
+    return `${dataStartNumber}
+             - 
+            ${
+              dataEndNumber < totalRecords ? dataEndNumber : totalRecords
+            } of ${totalRecords}`;
   };
 
-  const handlePaginationClick = (direction: string) => {
+  const handlePageOptionChange = (direction: string, pageSize?: number) => {
     if (direction === "prev") {
       setPageOptions({ pageSize: 5, pageNumber: pageOptions.pageNumber - 1 });
     } else if (direction === "next") {
       setPageOptions({ pageSize: 5, pageNumber: pageOptions.pageNumber + 1 });
+    } else if (direction === "change") {
+      setPageOptions({
+        pageSize: pageSize ? pageSize : 5,
+        pageNumber: 1,
+      });
     }
   };
 
@@ -117,17 +122,34 @@ function AllOrders() {
           </div>
 
           <OrderList isLoading={isLoading} orderData={orderData} />
-          <div className="d-flex mx-5 justify-content-end align-litems-center">
+          <div className="d-flex mx-5 justify-content-end align-items-center">
+            <div>Rows per page: </div>
+            <div>
+              <select
+                className="form-select mx-2"
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                  handlePageOptionChange("change", Number(e.target.value));
+                  setCurrentPageSize(Number(e.target.value));
+                }}
+                style={{ width: "80px" }}
+                value={currentPageSize}
+              >
+                <option>5</option>
+                <option>10</option>
+                <option>15</option>
+                <option>20</option>
+              </select>
+            </div>
             <div className="mx-2">{getPageDetails()}</div>
             <button
-              onClick={() => handlePaginationClick("prev")}
+              onClick={() => handlePageOptionChange("prev")}
               disabled={pageOptions.pageNumber === 1}
               className="btn btn-outline-primary px-3 mx-2"
             >
               <i className="bi bi-chevron-left"></i>
             </button>
             <button
-              onClick={() => handlePaginationClick("next")}
+              onClick={() => handlePageOptionChange("next")}
               disabled={
                 pageOptions.pageNumber * pageOptions.pageSize >= totalRecords
               }
