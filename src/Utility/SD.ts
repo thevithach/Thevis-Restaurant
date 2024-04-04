@@ -14,7 +14,7 @@ export enum SD_Status {
 
 export enum SD_Categories {
   APPETIZER = "Appetizer",
-  MAIN_COURSE = "Main Course",
+  ENTREE = "Entrée",
   DESSERT = "Dessert",
   DRINK = "Drink",
 }

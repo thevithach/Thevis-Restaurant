@@ -12,7 +12,7 @@ import { SD_Categories } from "../../Utility/SD";
 
 const Categories = [
   SD_Categories.APPETIZER,
-  SD_Categories.MAIN_COURSE,
+  SD_Categories.ENTREE,
   SD_Categories.DESSERT,
   SD_Categories.DRINK,
 ];
